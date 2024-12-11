@@ -1,50 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
+    <title>Habitacion</title>
+    <link rel="manifest" href="manifest.json">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            background-color: #f0f0f0;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px;
+        }
+        .gallery img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.1);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            background-color: #f4f4f4;
+            z-index: 1000;
         }
-
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 10px;
-            padding: 20px;
-            width: 90%;
-            max-width: 1200px;
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
-
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .modal .close, .modal .prev, .modal .next {
+            position: absolute;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 50%;
         }
-
-        .gallery img:hover {
-            transform: scale(1.05);
+        .modal .close {
+            top: 20px;
+            right: 20px;
+        }
+        .modal .prev {
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+        }
+        .modal .next {
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+        .modal.show {
+            display: flex;
         }
     </style>
 </head>
 <body>
-    <h1>Photo Gallery</h1>
     <div class="gallery">
-        <img src="balc%C3%B3n.jpg" alt="Balcón">
-        <img src="Ba%C3%B1o%20y%20Sanitario.jpg" alt="Baño y Sanitario">
-        <img src="cocina.jpg" alt="Cocina">
-        <img src="Escaleras.jpg" alt="Escaleras">
+        <img src="imagenes/imagen1.jpg" alt="Imagen 1" class="thumbnail">
+        <img src="imagenes/imagen2.jpg" alt="Imagen 2" class="thumbnail">
+        <img src="imagenes/imagen3.jpg" alt="Imagen 3" class="thumbnail">
+        <img src="imagenes/imagen4.jpg" alt="Imagen 4" class="thumbnail">
+	<img src="imagenes/imagen5.jpg" alt="Imagen 5" class="thumbnail">
+	<img src="imagenes/imagen6.jpg" alt="Imagen 6" class="thumbnail">
     </div>
+
+    <div class="modal" id="imageModal">
+        <span class="close">&times;</span>
+        <span class="prev">&#10094;</span>
+        <span class="next">&#10095;</span>
+        <img id="modalImage" src="" alt="Imagen Ampliada">
+    </div>
+
+    <script>
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.close');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentIndex = 0;
+
+        thumbnails.forEach((thumbnail, index) => {
+            thumbnail.addEventListener('click', () => {
+                currentIndex = index;
+                showImage();
+            });
+        });
+
+        function showImage() {
+            modalImage.src = thumbnails[currentIndex].src;
+            modal.classList.add('show');
+        }
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + thumbnails.length) % thumbnails.length;
+            showImage();
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % thumbnails.length;
+            showImage();
+        });
+
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker registrado con éxito.'))
+                .catch(err => console.error('Error al registrar el Service Worker:', err));
+        }
+    </script>
 </body>
 </html>

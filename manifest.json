@@ -1,0 +1,21 @@
+{
+    "name": "Habitación",
+    "short_name": "Habitación",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "Una galería de imágenes progresiva.",
+    "icons": [
+        {
+            "src": "imagenes/icono-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "imagenes/icono-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
