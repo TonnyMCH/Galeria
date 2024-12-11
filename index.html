@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habitacion</title>
+    link rel="icon" type="image/png" href="imagenes/icono-512x512.png"
     <link rel="manifest" href="manifest.json">
     <style>
         body {
@@ -15,6 +16,7 @@
             justify-content: center;
             background-color: #f0f0f0;
         }
+
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -22,18 +24,21 @@
             justify-content: center;
             margin: 20px;
         }
-        .gallery img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .gallery img:hover {
-            transform: scale(1.1);
-        }
+
+            .gallery img {
+                width: 150px;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                cursor: pointer;
+                transition: transform 0.2s;
+            }
+
+                .gallery img:hover {
+                    transform: scale(1.1);
+                }
+
         .modal {
             display: none;
             position: fixed;
@@ -46,40 +51,46 @@
             align-items: center;
             z-index: 1000;
         }
-        .modal img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-        }
-        .modal .close, .modal .prev, .modal .next {
-            position: absolute;
-            color: white;
-            font-size: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 10px;
-            border-radius: 50%;
-        }
-        .modal .close {
-            top: 20px;
-            right: 20px;
-        }
-        .modal .prev {
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-        }
-        .modal .next {
-            top: 50%;
-            right: 10px;
-            transform: translateY(-50%);
-        }
-        .modal.show {
-            display: flex;
-        }
+
+            .modal img {
+                max-width: 90%;
+                max-height: 90%;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            }
+
+            .modal .close, .modal .prev, .modal .next {
+                position: absolute;
+                color: white;
+                font-size: 30px;
+                text-decoration: none;
+                font-weight: bold;
+                cursor: pointer;
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 10px;
+                border-radius: 50%;
+            }
+
+            .modal .close {
+                top: 20px;
+                right: 20px;
+            }
+
+            .modal .prev {
+                top: 50%;
+                left: 10px;
+                transform: translateY(-50%);
+            }
+
+            .modal .next {
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+            }
+
+            .modal.show {
+                display: flex;
+            }
     </style>
 </head>
 <body>
